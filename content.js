@@ -4,30 +4,9 @@ document.addEventListener('mouseup', async () => {
   if (!selection || selection.split(" ").length > 1) return;
 
   const word = selection;
-  console.log(`🔍 Checking language of: "${word}"`);
+  console.log(`🔍 Translating: "${word}"`);
 
   try {
-    // Detect language first
-    const langDetectResp = await fetch("https://libretranslate.com/detect", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ q: word })
-    });
-
-    if (!langDetectResp.ok) {
-      console.warn("❌ Language detection failed");
-      return;
-    }
-
-    const detected = await langDetectResp.json();
-    const detectedLang = detected?.[0]?.language;
-
-    if (detectedLang !== "es") {
-      console.log(`🛑 Skipping "${word}" — detected language is '${detectedLang}', not Spanish.`);
-      return;
-    }
-
-    // Translate Spanish → English
     const response = await fetch("https://libretranslate.com/translate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
