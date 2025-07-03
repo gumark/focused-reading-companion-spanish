@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Focused Reading Companion",
+  "version": "1.0",
+  "description": "Highlight a Spanish word to get its English translation.",
+  "permissions": ["scripting", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
+}
