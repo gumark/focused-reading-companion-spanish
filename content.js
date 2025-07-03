@@ -4,27 +4,38 @@ document.addEventListener('mouseup', async () => {
   if (!selection || selection.split(" ").length > 1) return;
 
   const word = selection;
-  const response = await fetch("https://libretranslate.com/translate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      q: word,
-      source: "es",
-      target: "en",
-      format: "text"
-    })
-  });
+  console.log(`🔍 Translating: "${word}"`);
 
-  if (!response.ok) return;
+  try {
+    const response = await fetch("https://libretranslate.com/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        q: word,
+        source: "es",
+        target: "en",
+        format: "text"
+      })
+    });
 
-  const data = await response.json();
-  const translation = data.translatedText;
+    if (!response.ok) {
+      console.error("❌ Translation request failed", response.statusText);
+      return;
+    }
 
-  showTooltip(word, translation);
+    const data = await response.json();
+    const translation = data.translatedText;
+
+    if (translation) {
+      showTooltip(word, translation);
+    }
+
+  } catch (err) {
+    console.error("💥 Error translating:", err);
+  }
 });
 
 function showTooltip(original, translation) {
-  // Remove any existing tooltip
   const old = document.getElementById('frc-tooltip');
   if (old) old.remove();
 
@@ -40,6 +51,5 @@ function showTooltip(original, translation) {
   tooltip.style.left = `${window.scrollX + rect.left}px`;
 
   document.body.appendChild(tooltip);
-
   setTimeout(() => tooltip.remove(), 4000);
 }
