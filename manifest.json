@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Focused Reading Companion",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Translate Spanish text on highlight and show history.",
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {

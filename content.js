@@ -6,6 +6,8 @@ document.addEventListener('mouseup', async () => {
   if (!phrase || phrase.length > 300) return;
 
   console.log(`🔍 Translating: "${phrase}"`);
+  console.log("Fetching:", `https://api.mymemory.translated.net/get?q=${encodeURIComponent(phrase)}&langpair=es|en`);
+
 
   try {
     const encodedPhrase = encodeURIComponent(phrase);
@@ -17,6 +19,7 @@ document.addEventListener('mouseup', async () => {
     }
 
     const data = await response.json();
+    console.log("📦 API response:", data);
     const translation = data.responseData.translatedText;
 
     if (translation && translation.toLowerCase() !== phrase.toLowerCase()) {
@@ -55,3 +58,6 @@ function showTooltip(original, translation) {
   document.body.appendChild(tooltip);
   setTimeout(() => tooltip.remove(), 5000);
 }
+window.testTooltip = () => {
+  showTooltip("Hola", "Hello");
+};
