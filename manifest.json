@@ -1,15 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Focused Reading Companion",
-  "version": "6.9",
-  "description": "Translate Spanish words/phrases on highlight and view history.",
+  "version": "1.0",
+  "description": "Translate Spanish text on highlight and show history.",
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png"
-  },
-  "background": {
-    "service_worker": "background.js"
   },
   "content_scripts": [
     {
