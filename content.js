@@ -33,6 +33,15 @@ document.addEventListener('mouseup', async () => {
 
 
 function showTooltip(original, translation) {
+    const selection = window.getSelection();
+  if (!selection.rangeCount) {
+    console.warn("⚠️ No selection range found — tooltip skipped.");
+    return;
+  }
+
+  const range = selection.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+
   // Save to history
   chrome.storage.local.get({ history: [] }, (result) => {
     const history = result.history;
@@ -61,3 +70,4 @@ function showTooltip(original, translation) {
 window.testTooltip = () => {
   showTooltip("Hola", "Hello");
 };
+// send help
